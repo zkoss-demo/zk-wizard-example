@@ -65,15 +65,6 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io}</version>
 		</dependency>
-		
-		<!-- ZK 5 breeze theme
-		<dependency>
-			<groupId>org.zkoss.theme</groupId>
-			<artifactId>breeze</artifactId>
-			<version>${zk.version}</version>
-			<optional>true</optional>
-		</dependency>
-		 -->
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -84,10 +75,10 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.3.0.v20150612</version>
 				<configuration>
-				<webApp>
-					<contextPath>/wizardexample</contextPath>
-				</webApp>
-				<scanIntervalSeconds>5</scanIntervalSeconds>
+					<webApp>
+						<contextPath>/wizardexample</contextPath>
+					</webApp>
+					<scanIntervalSeconds>5</scanIntervalSeconds>
 				</configuration>
 			</plugin>
 			<!-- Compile java -->
