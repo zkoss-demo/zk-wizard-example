@@ -3,15 +3,18 @@
 <zk xmlns:sh="shadow">
 	<grid>
 		<rows>
-			<formRow type="static" label="@init(i18n:nls('order.basket'))" value="@init(order.basket)"/> 
+			<formRow type="static" label="@init(i18n:nls('order.basket'))" value="@init(savedOrder.basket)"/> 
 		</rows>
 	</grid>		
 	${i18n:nls('order.shippingAddress.hint')}
 	<grid>
 		<rows>
-			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.street'))" value="@ref(order.shippingAddress.street)"/> 
-			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.city'))" value="@ref(order.shippingAddress.city)"/> 
-			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.zipCode'))" value="@ref(order.shippingAddress.zipCode)"/>
+			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.street'))" value="@ref(order.shippingAddress.street)"
+				error="@ref(vmsgs['p_shippingAddress.street'])"/> 
+			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.city'))" value="@ref(order.shippingAddress.city)" 
+				error="@ref(vmsgs['p_shippingAddress.city'])"/> 
+			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.zipCode'))" value="@ref(order.shippingAddress.zipCode)"
+				error="@ref(vmsgs['p_shippingAddress.zipCode'])"/> 
 		</rows>
 	</grid>
 </zk>

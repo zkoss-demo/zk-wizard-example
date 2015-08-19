@@ -12,8 +12,8 @@ public class ShippingAddress {
 	private String city;
 	private String zipCode;
 
-	@NotNull(groups={ShippingGroup.class, Default.class})
-	@Size(min=4, max=50, groups={ShippingGroup.class, Default.class})
+	@NotNull(groups={ShippingGroup.class, Default.class}, message="{field.empty}")
+	@Size(min=4, max=50, groups={ShippingGroup.class, Default.class}, message="{field.size}")
 	public String getStreet() {
 		return street;
 	}
@@ -21,8 +21,8 @@ public class ShippingAddress {
 		this.street = street;
 	}
 
-	@NotNull(groups={ShippingGroup.class, Default.class})
-	@Size(min=1, max=30, groups={ShippingGroup.class, Default.class})
+	@NotNull(groups={ShippingGroup.class, Default.class}, message="{field.empty}")
+	@Size(min=1, max=30, groups={ShippingGroup.class, Default.class}, message="{field.size}")
 	public String getCity() {
 		return city;
 	}
@@ -30,8 +30,8 @@ public class ShippingAddress {
 		this.city = city;
 	}
 
-	@NotNull(groups={ShippingGroup.class, Default.class})
-	@Size(min=1, max=10, groups={ShippingGroup.class, Default.class})
+	@NotNull(groups={ShippingGroup.class, Default.class}, message="{field.empty}")
+	@Size(min=1, max=10, groups={ShippingGroup.class, Default.class}, message="{field.size}")
 	public String getZipCode() {
 		return zipCode;
 	}

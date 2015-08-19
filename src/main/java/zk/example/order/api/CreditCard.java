@@ -12,7 +12,7 @@ public class CreditCard {
 	private String number;
 	private String owner;
 	
-	@NotNull(groups={PaymentGroup.class, Default.class})
+	@NotNull(groups={PaymentGroup.class, Default.class}, message="{creditCard.type.empty}")
 	public CreditCardType getType() {
 		return type;
 	}
@@ -20,8 +20,8 @@ public class CreditCard {
 		this.type = type;
 	}
 
-	@NotNull(groups={PaymentGroup.class, Default.class})
-	@Size(min=16, groups={PaymentGroup.class, Default.class}, message="Credit card number needs to have 16 digits")
+	@NotNull(groups={PaymentGroup.class, Default.class}, message="{field.empty}")
+	@Size(min=16, groups={PaymentGroup.class, Default.class}, message="{creditCard.number.size}")
 	public String getNumber() {
 		return number;
 	}
@@ -29,7 +29,7 @@ public class CreditCard {
 		this.number = number;
 	}
 
-	@NotNull(groups={PaymentGroup.class, Default.class})
+	@NotNull(groups={PaymentGroup.class, Default.class}, message="{field.empty}")
 	public String getOwner() {
 		return owner;
 	}

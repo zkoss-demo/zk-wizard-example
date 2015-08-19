@@ -63,6 +63,10 @@
 			</vlayout>
 		</sh:if>
 
+		<sh:if test="@load(!empty vmsgs['p_basket.items'])">
+			<label style="color: red" value="@load(vmsgs['p_basket.items'])"/>
+		</sh:if>
+
 		<template name="basketItemLabel">
 			<label value="@load(item.label)"/>
 			<label value="@load(item.unitPrice) @converter(basketVM.priceFormatterParentheses)"/>

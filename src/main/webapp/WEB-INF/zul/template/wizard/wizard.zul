@@ -3,11 +3,15 @@
 			viewModel="@id('wizardVM') @init(wizardModel)"
 			validationMessages="@id('vmsgs')"
 			onOK="@command(wizardVM.nextCommand)">
-		<sh:apply template="wizardContent"/>
+		<sh:apply template="@init(empty wrapperTemplate ? 'defaultWizardContentWrapper' : wrapperTemplate)"/>
 	</window>
 
+	<template name="defaultWizardContentWrapper">
+		<sh:apply template="wizardContent"/>
+	</template>
+
 	<template name="wizardContent">
-		<vlayout width="100%">
+		<vlayout>
 			<sh:apply template="wizardProgress"/>
 			<sh:apply templateURI="@load(wizardVM.currentStepTemplateUri)" />
 			<sh:apply template="wizardButtons"/>

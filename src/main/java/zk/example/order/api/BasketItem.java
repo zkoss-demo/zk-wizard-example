@@ -6,6 +6,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 
+import org.zkoss.bind.annotation.Immutable;
+import org.zkoss.bind.annotation.Transient;
+
 import zk.example.order.api.validation.BasketGroup;
 
 
@@ -24,6 +27,7 @@ public class BasketItem {
 		this.status = status;
 	}
 
+	@Transient
 	public BigDecimal getItemPrice() {
 		return getUnitPrice().multiply(BigDecimal.valueOf(getQuantity()));
 	}
@@ -35,6 +39,7 @@ public class BasketItem {
 		this.label = label;
 	}
 	
+	@Immutable
 	public BigDecimal getUnitPrice() {
 		return unitPrice;
 	}
@@ -42,7 +47,7 @@ public class BasketItem {
 		this.unitPrice = unitPrice;
 	}
 	
-	@Min(value = 1, groups={BasketGroup.class, Default.class}, message="Quantity needs to be >= {value}")
+	@Min(value = 1, groups={BasketGroup.class, Default.class})
 	public int getQuantity() {
 		return quantity;
 	}

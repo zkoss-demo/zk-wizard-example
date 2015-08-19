@@ -1,10 +1,17 @@
 <?component name="wizard" templateURI="/WEB-INF/zul/template/wizard/wizard.zul" ?>
-<zk>
+<zk xmlns:sh="shadow">
 	<div width="500px" 
 		 viewModel="@id('vm') @init('zk.example.order.OrderViewModel')" 
 		 validationMessages="@id('vmsgs')"
 		 onBookmarkChange="@command('gotoStep', stepId=event.bookmark)">
 		 
-		<wizard wizardModel="@init(vm.wizardModel)" order="@init(vm.order)"/>
+		<wizard wizardModel="@init(vm.wizardModel)" wrapperTemplate="formWrapper">
+			<template name="formWrapper">
+				<div form="@id('orderForm') @load(vm.order) @save(vm.order, before=vm.wizardModel.nextCommand)
+						@validator('formBeanValidator', prefix='p_', groups=wizardModel.currentStep.validationGroups)">
+					<sh:apply template="wizardContent" order="@init(orderForm)" savedOrder="@init(vm.order)"/>
+				</div>
+			</template>
+		</wizard>
 	</div>
 </zk>

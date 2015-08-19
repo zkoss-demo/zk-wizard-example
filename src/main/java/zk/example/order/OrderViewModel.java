@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.validation.groups.Default;
+
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -16,6 +18,9 @@ import zk.example.order.api.BasketItemStatusType;
 import zk.example.order.api.Order;
 import zk.example.order.api.Payment;
 import zk.example.order.api.ShippingAddress;
+import zk.example.order.api.validation.BasketGroup;
+import zk.example.order.api.validation.PaymentGroup;
+import zk.example.order.api.validation.ShippingGroup;
 import zk.example.order.service.OrderService;
 import zk.example.wizard.Bookmark;
 import zk.example.wizard.model.WizardStep;
@@ -55,10 +60,10 @@ public class OrderViewModel {
 
 	private void initWizardModel() {
 		List<WizardStep> availableSteps = Arrays.asList(
-				wizardStep(BASKET),
-				wizardStep(SHIPPING_ADDRESS),
-				wizardStep(PAYMENT),
-				wizardStep(CONFIRMATION)
+				wizardStep(BASKET, BasketGroup.class),
+				wizardStep(SHIPPING_ADDRESS, ShippingGroup.class),
+				wizardStep(PAYMENT, PaymentGroup.class),
+				wizardStep(CONFIRMATION, Default.class)
 					.withBeforeNextHandler(this::sendOrder)
 					.withNextLabel(NlsFunctions.nls("order.confirmation.button.sendNow")),
 				wizardStep(FEEDBACK)
@@ -74,10 +79,10 @@ public class OrderViewModel {
 		};
 	}
 
-	private WizardStep wizardStep(String stepId) {
+	private ValidatingWizardStep wizardStep(String stepId, Class<?>... validationGroups) {
 		String title = NlsFunctions.nls("order." + stepId + ".title");
 		String templateUri = STEP_FOLDER + stepId + ".zul";
-		return new WizardStep(stepId, title, templateUri);
+		return new ValidatingWizardStep(stepId, title, templateUri, validationGroups);
 	}
 
 	private void sendOrder() {

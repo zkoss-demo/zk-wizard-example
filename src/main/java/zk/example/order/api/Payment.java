@@ -12,7 +12,7 @@ public class Payment {
 	private CreditCard creditCard;
 	private BankAccount bankAccount;
 
-	@NotNull(groups={PaymentGroup.class, Default.class}, message="Please Choose a Payment Method")
+	@NotNull(groups={PaymentGroup.class, Default.class}, message="{payment.method.empty}")
 	public PaymentMethodType getMethod() {
 		return method;
 	}

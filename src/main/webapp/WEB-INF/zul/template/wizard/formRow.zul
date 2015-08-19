@@ -1,5 +1,5 @@
 <zk xmlns:sh="shadow">
-	<row>
+	<row hasError="@ref(! empty error)">
 		<sh:choose>
 			<sh:when test="@init(type eq 'checkbox')">
 				<cell/>
@@ -8,7 +8,12 @@
 				<label value="@init(label)"/>
 			</sh:otherwise>
 		</sh:choose>
-		<sh:apply template="@init(type)"/>
+		<cell style="@load(hasError ? 'background-color: #FFEEEE' : null)">
+			<sh:apply template="@init(type)"/>
+			<sh:if test="@load(hasError)">
+				<sh:apply template="error"/>
+			</sh:if>
+		</cell>
 	</row>
 	
 	<template name="checkbox">
@@ -33,5 +38,11 @@
 	
 	<template name="static-bookmark-link">
 		<a label="@load(value)" href="@init(('#' += bookmark))"/>
+	</template>
+	
+	<template name="error">
+		<div>
+			<label style="color: red" value="@load(error)"/>
+		</div>
 	</template>
 </zk>

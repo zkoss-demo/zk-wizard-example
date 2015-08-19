@@ -4,15 +4,15 @@
 		${i18n:nls('order.feedback.success')}
 		<hlayout>
 			${i18n:nls('order.basket')}: 
-			<label value="@init(order.basket)"/> 
+			<label value="@init(savedOrder.basket)"/> 
 		</hlayout>
 		<hlayout>
 			${i18n:nls('order.shippingAddress')}: 
-			<label value="@init(order.shippingAddress)"/> 
+			<label value="@init(savedOrder.shippingAddress)"/> 
 		</hlayout>
 		<hlayout>
 			${i18n:nls('order.payment')}: 
-			<label value="@init(order.payment)"/> 
+			<label value="@init(savedOrder.payment)"/> 
 		</hlayout>
 	</vlayout>
 </zk>

@@ -66,12 +66,13 @@
 			<version>${commons-io}</version>
 		</dependency>
 
-		<!-- bean validation API just the API no implementation yet -->
+		<!-- bean validation implementation -->
 		<dependency>
-		    <groupId>javax.validation</groupId>
-		    <artifactId>validation-api</artifactId>
-		    <version>1.0.0.GA</version>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>5.2.1.Final</version>
 		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}</finalName>

@@ -43,7 +43,7 @@ public class Order {
 		this.payment = payment;
 	}
 
-	@AssertTrue(message = "Please Accept the GTC")
+	@AssertTrue(message = "{order.accept}")
 	public boolean isAccepted() {
 		return accepted;
 	}
