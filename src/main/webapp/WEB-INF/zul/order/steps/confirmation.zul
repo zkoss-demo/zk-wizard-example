@@ -1,18 +1,12 @@
 <?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
 <?component name="formRow" templateURI="/WEB-INF/zul/template/wizard/formRow.zul" ?>
 <zk xmlns:sh="shadow" xmlns:x="xhtml" xmlns:ca="client/attribute">
-	<grid>
-		<rows>
-			<formRow type="static-bookmark-link" label="@init(i18n:nls('order.basket'))" value="@init(savedOrder.basket)" bookmark="@init(wizardModel.previousSteps[0].id)"/> 
-			<formRow type="static-bookmark-link" label="@init(i18n:nls('order.shippingAddress'))" value="@init(savedOrder.shippingAddress)" bookmark="@init(wizardModel.previousSteps[1].id)"/> 
-			<formRow type="static-bookmark-link" label="@init(i18n:nls('order.payment'))" value="@init(savedOrder.payment)" bookmark="@init(wizardModel.previousSteps[2].id)"/> 
-		</rows>
-	</grid>
-	${i18n:nls('order.confirmation.hint')}
-	<grid>
-		<rows>
-			<formRow type="checkbox" label="${i18n:nls('order.confirmation.gtc')}" value="@ref(order.accepted)"
-				error="@ref(vmsgs['p_accepted'])"/> 
-		</rows>
-	</grid>
+	<x:div class="form-horizontal">
+		<formRow type="static-bookmark-link" label="@init(i18n:nls('order.basket'))" value="@init(savedOrder.basket)" bookmark="@init(wizardModel.previousSteps[0].id)"/> 
+		<formRow type="static-bookmark-link" label="@init(i18n:nls('order.shippingAddress'))" value="@init(savedOrder.shippingAddress)" bookmark="@init(wizardModel.previousSteps[1].id)"/> 
+		<formRow type="static-bookmark-link" label="@init(i18n:nls('order.payment'))" value="@init(savedOrder.payment)" bookmark="@init(wizardModel.previousSteps[2].id)"/>
+		<x:div class="alert alert-info" role="alert" textContent="${i18n:nls('order.confirmation.hint')}"/>
+		<formRow type="checkbox" label="${i18n:nls('order.confirmation.gtc')}" value="@ref(order.accepted)"
+			error="@ref(vmsgs['p_accepted'])"/> 
+	</x:div> 
 </zk>

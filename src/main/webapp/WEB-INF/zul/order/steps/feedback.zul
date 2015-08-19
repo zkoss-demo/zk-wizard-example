@@ -1,18 +1,12 @@
 <?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
+<?component name="formRow" templateURI="/WEB-INF/zul/template/wizard/formRow.zul" ?>
 <zk xmlns:sh="shadow" xmlns:x="xhtml">
-	<vlayout>
-		${i18n:nls('order.feedback.success')}
-		<hlayout>
-			${i18n:nls('order.basket')}: 
-			<label value="@init(savedOrder.basket)"/> 
-		</hlayout>
-		<hlayout>
-			${i18n:nls('order.shippingAddress')}: 
-			<label value="@init(savedOrder.shippingAddress)"/> 
-		</hlayout>
-		<hlayout>
-			${i18n:nls('order.payment')}: 
-			<label value="@init(savedOrder.payment)"/> 
-		</hlayout>
-	</vlayout>
+	<x:div class="form-horizontal">
+		<x:div class="alert alert-success" role="alert">
+			<x:text value="${i18n:nls('order.feedback.success')}"/>
+		</x:div>
+		<formRow type="static" label="${i18n:nls('order.basket')}" value="@init(savedOrder.basket)"/> 
+		<formRow type="static" label="${i18n:nls('order.shippingAddress')}" value="@init(savedOrder.shippingAddress)"/> 
+		<formRow type="static" label="${i18n:nls('order.payment')}" value="@init(savedOrder.payment)"/> 
+	</x:div>
 </zk>

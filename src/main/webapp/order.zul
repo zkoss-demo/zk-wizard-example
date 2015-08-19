@@ -1,6 +1,12 @@
 <?component name="wizard" templateURI="/WEB-INF/zul/template/wizard/wizard.zul" ?>
-<zk xmlns:sh="shadow">
-	<div width="500px" 
+<zk xmlns:sh="shadow" xmlns:x="xhtml">
+
+	<!-- Latest compiled and minified CSS -->
+	<?link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" ?>
+	<!-- Latest compiled and minified JavaScript -->
+	<?script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ?>
+
+	<x:div class="container"
 		 viewModel="@id('vm') @init('zk.example.order.OrderViewModel')" 
 		 validationMessages="@id('vmsgs')"
 		 onBookmarkChange="@command('gotoStep', stepId=event.bookmark)">
@@ -13,5 +19,5 @@
 				</div>
 			</template>
 		</wizard>
-	</div>
+	</x:div>
 </zk>

@@ -1,0 +1,16 @@
+<language-addon>
+	<addon-name>wizard</addon-name>
+	<version>1.0</version>
+	<language-name>xul/html</language-name>
+
+	<depends>zkbind</depends>
+
+	<component>
+		<component-name>checkbox</component-name>
+		<extends>checkbox</extends>
+		<mold>
+			<mold-name>formgroup</mold-name>
+			<mold-uri>mold/checkbox-formgroup.js</mold-uri>
+		</mold>
+	</component>
+</language-addon>

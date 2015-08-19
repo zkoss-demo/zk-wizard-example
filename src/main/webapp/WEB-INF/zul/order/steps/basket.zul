@@ -1,66 +1,71 @@
 <?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
-<zk xmlns:sh="shadow" xmlns:x="xhtml" >
-	<div viewModel="@id('basketVM') @init('zk.example.order.BasketViewModel', basket=order.basket)">
-		<style>
-			.green {
-				color: #00CC00;
-			}
-			.yellow {
-				color: #FFDD00;
-			}
-			.red {
-				color: #EE0000;
-			}
-			.recommendation {
-				display: inline-block;
-				padding: 3px 7px;
-				background-color: #EEEEEE;
-				border-radius: 4px;
-				cursor: pointer;
-			}
-		</style>
-
-		${i18n:nls('order.basket.hint')}
-		<grid model="@init(basketVM.itemsModel)">
-			<columns>
-				<column width="40px">
-					<x:i sclass="z-icon-shopping-cart" style="font-size: 22px"/>
-				</column>
-				<column hflex="1" label="${i18n:nls('order.basket.itemDescription')}"/>
-				<column width="60px" label="${i18n:nls('order.basket.quantity')}"/>
-				<column width="70px" label="${i18n:nls('order.basket.price')}" align="right"/>
-			</columns>
-			<template name="model" var="item">
-				<row>
-					<div status="@ref(item.status)" tooltiptext="@load(i18n:nls(status))" sclass="@load(i18n:nlsSub(status, 'style'))">
-						<x:i sclass="@load(i18n:nlsSub(status, 'icon'))" textContent=" "/>
-					</div>
-					<div>
-						<sh:apply template="basketItemLabel" item="@init(item)"/>
-						<a iconSclass="z-icon-times" sclass="red" onClick="@command('removeItem', basketItem=item)" tooltiptext="remove"/>
-					</div>
-					<spinner constraint="min 1" value="@bind(item.quantity)" width="50px" onChange="@command('updateQuantity', basketItem=item)" instant="true"/>
-					<label value="@load(item.itemPrice) @converter(basketVM.priceFormatter)"/>
-				</row>
-			</template>
-			<foot>
-				<footer/>
-				<footer label="${i18n:nls('order.basket.total')}"/>
-				<footer/>
-				<footer label="@load(order.basket.totalPrice) @converter(basketVM.priceFormatter)"/>
-			</foot>
-		</grid>
+<zk xmlns:sh="shadow" xmlns:x="xhtml" xmlns:n="native" xmlns:ca="client/attribute" xmlns:z="zk">
+	<x:div viewModel="@id('basketVM') @init('zk.example.order.BasketViewModel', basket=order.basket)">
+		
+		<x:div class="alert alert-info" role="alert" textContent="${i18n:nls('order.basket.hint')}"/>
+		<n:table class="table table-striped">	
+			<n:colgroup>
+				<n:col width="50px"/>
+				<n:col/>
+				<n:col width="60px"/>
+				<n:col width="100px"/>
+			</n:colgroup>
+			<n:thead>
+				<n:tr>
+					<n:th style="padding: 6px 8px;"><n:i sclass="z-icon-shopping-cart" style="font-size: 22px"/></n:th>
+					<n:th>${i18n:nls('order.basket.itemDescription')}</n:th>
+					<n:th>${i18n:nls('order.basket.quantity')}</n:th>
+					<n:th class="text-right">${i18n:nls('order.basket.price')}</n:th>
+				</n:tr>
+			</n:thead>
+			
+			<x:tbody>
+				<sh:forEach items="@load(basketVM.itemsModel)" var="item">
+					<x:tr>
+						<n:td>
+							<span zclass=" " status="@ref(item.status)" sclass="@load(i18n:nlsSub(status, 'style'))" 
+								ca:data-toggle="tooltip" ca:data-placement="top" tooltiptext="@load(i18n:nls(status))">
+								<x:i sclass="@load(i18n:nlsSub(status, 'icon'))" textContent=" "/>
+							</span>
+						</n:td>
+						<n:td>
+							<sh:apply template="basketItemLabel" item="@init(each)"/>
+							<button zclass="close" iconSclass="z-icon-times" onClick="@command('removeItem', basketItem=item)"
+								ca:data-toggle="tooltip" ca:data-placement="right" ca:data-title="${i18n:nls('order.basket.remove')}"/>
+						</n:td>
+						<x:td class="text-center" style="padding: 6px;">
+							<spinner constraint="min 0" value="@bind(item.quantity)" width="50px" onChange="@command('updateQuantity', basketItem=item)" instant="true"/>
+						</x:td>
+						<x:td class="text-right" textContent="@load(item.itemPrice) @converter(basketVM.priceFormatter)"/>
+					</x:tr>
+				</sh:forEach>
+			</x:tbody>
+			
+			<n:tfoot>
+				<n:tr>
+					<n:td/>
+					<n:td><n:strong>${i18n:nls('order.basket.total')}</n:strong></n:td>
+					<n:td/>
+					<n:td class="text-right">
+						<x:strong textContent="@load(order.basket.totalPrice) @converter(basketVM.priceFormatter)"/>
+					</n:td>
+				</n:tr>
+			</n:tfoot>
+		</n:table>
 		
 		<sh:if test="@load(basketVM.hasRecommendations)">
-			<vlayout>
-				${i18n:nls('order.basket.recommendation')}
+			<x:div class="alert alert-info" role="alert" textContent="${i18n:nls('order.basket.recommendation')}"/>
+			<x:div class="row">
 				<sh:forEach items="@init(basketVM.recommendedItemsModel)">
-					<div sclass="recommendation" onClick="@command('addRecommendedItem', item=each)" tooltiptext="add to basket">
-						<sh:apply template="basketItemLabel" item="@init(each)"/>
-						<a iconSclass="z-icon-plus green" href="#" />
-					</div>
+					<x:div class="col-lg-4 col-sm-6">
+						<x:div class="well well-sm">
+							<sh:apply template="basketItemLabel" item="@init(each)"/>
+							<button zclass="btn btn-info btn-xs pull-right" iconSclass="z-icon-shopping-cart" onClick="@command('addRecommendedItem', item=each)" 
+								ca:data-toggle="tooltip" ca:data-placement="right" ca:data-title="${i18n:nls('order.basket.add')}"/>
+						</x:div>
+					</x:div>
 				</sh:forEach>
-			</vlayout>
+			</x:div>
 		</sh:if>
 
 		<sh:if test="@load(!empty vmsgs['p_basket.items'])">
@@ -68,8 +73,8 @@
 		</sh:if>
 
 		<template name="basketItemLabel">
-			<label value="@load(item.label)"/>
-			<label value="@load(item.unitPrice) @converter(basketVM.priceFormatterParentheses)"/>
+			<x:strong textContent="@load((item.label))"/>
+			<x:text value="@load(item.unitPrice) @converter(basketVM.priceFormatterParentheses)"/>
 		</template>
-	</div>
+	</x:div>
 </zk>

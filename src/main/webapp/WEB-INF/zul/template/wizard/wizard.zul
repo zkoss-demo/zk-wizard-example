@@ -1,35 +1,44 @@
-<zk xmlns:sh="shadow">
-	<window border="normal" title="@load(wizardVM.currentStep.title)"
+<zk xmlns:sh="shadow" xmlns:n="native" xmlns:x="xhtml">
+	<div zclass="panel panel-primary"
 			viewModel="@id('wizardVM') @init(wizardModel)"
 			validationMessages="@id('vmsgs')"
 			onOK="@command(wizardVM.nextCommand)">
-		<sh:apply template="@init(empty wrapperTemplate ? 'defaultWizardContentWrapper' : wrapperTemplate)"/>
-	</window>
+		<n:div class="panel-heading">
+			<x:h3 class="panel-title" textContent="@load(wizardVM.currentStep.title)"/>
+		</n:div>
+		<n:div class="panel-body">
+			<sh:apply template="@init(empty wrapperTemplate ? 'defaultWizardContentWrapper' : wrapperTemplate)"/>
+		</n:div>
+	</div>
 
 	<template name="defaultWizardContentWrapper">
-		<sh:apply template="wizardContent"/>
+		<n:div class="wizardContainer">
+			<sh:apply template="wizardContent"/>
+		</n:div>
 	</template>
 
 	<template name="wizardContent">
-		<vlayout>
-			<sh:apply template="wizardProgress"/>
-			<sh:apply templateURI="@load(wizardVM.currentStepTemplateUri)" />
-			<sh:apply template="wizardButtons"/>
-		</vlayout>
+		<sh:apply template="wizardProgress"/>
+		<sh:apply templateURI="@load(wizardVM.currentStepTemplateUri)" />
+		<sh:apply template="wizardButtons"/>
 	</template>
 	
 	<template name="wizardProgress">
-		<progressmeter value="@load(wizardVM.progress)" width="100%" />
+		<n:div class="progress">
+			<x:div class="progress-bar progress-bar-success progress-bar-striped" 
+				style="@load(('width: ' += wizardVM.progress += '%; min-width: 2em;'))"
+				textContent="@load((wizardVM.progress += '%'))"/>
+		</n:div>
 	</template>
 	
 	<template name="wizardButtons">
-		<hlayout>
+		<x:div>
 			<sh:if test="@load(wizardVM.backVisible)">
-				<button label="@load(wizardVM.backLabel)" onClick="@command(wizardVM.backCommand)" />
+				<button zclass="btn btn-default" label="@load(wizardVM.backLabel)" onClick="@command(wizardVM.backCommand)" />
 			</sh:if>
 			<sh:if test="@load(wizardVM.nextVisible)">
-				<button label="@load(wizardVM.nextLabel)" onClick="@command(wizardVM.nextCommand)" />
+				<button zclass="btn btn-success pull-right" label="@load(wizardVM.nextLabel)" onClick="@command(wizardVM.nextCommand)" />
 			</sh:if>
-		</hlayout>
+		</x:div>
 	</template>
 </zk>

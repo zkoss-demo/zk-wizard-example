@@ -1,31 +1,35 @@
-<zk xmlns:sh="shadow">
-	<row hasError="@ref(! empty error)">
+<zk xmlns:sh="shadow" xmlns:x="xhtml" xmlns:n="native">
+	<x:div sclass="@load(empty error ? 'form-group' : 'form-group has-error')">
 		<sh:choose>
-			<sh:when test="@init(type eq 'checkbox')">
-				<cell/>
+			<sh:when test="@load(type eq 'checkbox')">
+				<n:div class="col-sm-offset-3 col-sm-9">
+					<sh:apply template="checkbox"/>
+				</n:div>
 			</sh:when>
 			<sh:otherwise>
-				<label value="@init(label)"/>
+				<x:label class="col-sm-3 control-label" textContent="@init(label)"/>
+				<n:div class="col-sm-9">
+					<sh:apply template="@load(type)"/>
+				</n:div>
 			</sh:otherwise>
 		</sh:choose>
-		<cell style="@load(hasError ? 'background-color: #FFEEEE' : null)">
-			<sh:apply template="@init(type)"/>
-			<sh:if test="@load(hasError)">
-				<sh:apply template="error"/>
-			</sh:if>
-		</cell>
-	</row>
-	
+	</x:div>
+	<sh:if test="@load(!empty error)">
+		<x:div sclass="alert alert-danger well-sm" textContent="@load(error)"/>
+	</sh:if>
+
 	<template name="checkbox">
-		<checkbox checked="@bind(value)" onCheck="@command(updateCommand)" label="@load(label)"/>
+		<n:div class="checkbox">
+			<checkbox zclass=" " checked="@bind(value)" onCheck="@command(updateCommand)" label="@load(label)" mold="formgroup"/>
+		</n:div>
 	</template>
 	
 	<template name="textbox">
-		<textbox value="@bind(value)" onChange="@command(changeCommand)"/>
+		<textbox zclass="form-control" value="@bind(value)" onChange="@command(changeCommand)"/>
 	</template>
 
 	<template name="selectbox">
-		<selectbox selectedItem="@bind(value)" model="@load(model)" onSelect="@command(updateCommand)">
+		<selectbox zclass="form-control" selectedItem="@bind(value)" model="@load(model)" onSelect="@command(updateCommand)">
 			<template name="model">
 				<label value="@init(i18n:nls(each))"/>
 			</template>
@@ -33,16 +37,12 @@
 	</template>
 
 	<template name="static">
-		<label value="@load(value)" />
+		<x:p class="form-control-static" textContent="@load(value)" />
 	</template>
 	
 	<template name="static-bookmark-link">
-		<a label="@load(value)" href="@init(('#' += bookmark))"/>
-	</template>
-	
-	<template name="error">
-		<div>
-			<label style="color: red" value="@load(error)"/>
-		</div>
+		<n:p class="form-control-static">
+			<x:a textContent="@init(value)" href="@init(('#' += bookmark))"/>
+		</n:p>
 	</template>
 </zk>

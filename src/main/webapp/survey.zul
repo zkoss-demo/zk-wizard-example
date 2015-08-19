@@ -1,5 +1,12 @@
 <?component name="wizard" templateURI="/WEB-INF/zul/template/wizard/wizard.zul" ?>
 <zk>
+
+	<!-- Latest compiled and minified CSS -->
+	<?link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" ?>
+	<!-- Latest compiled and minified JavaScript -->
+	<?script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" ?>
+
+
 	<div width="500px" 
 		 viewModel="@id('vm') @init('zk.example.survey.SurveyViewModel')" 
 		 validationMessages="@id('vmsgs')">
@@ -8,12 +15,13 @@
 	
 			<!-- injected template - visible inside the wizard -->
 			<template name="yesno">
-				<radiogroup selectedItem="@bind(answer)">
-					<radio label="Yes" value="${true}"/>
-					<radio label="No" value="${false}"/>
-				</radiogroup>
+				<div>
+					<radiogroup selectedItem="@bind(answer)">
+						<radio label="Yes" value="${true}"/>
+						<radio label="No" value="${false}"/>
+					</radiogroup>
+				</div>
 			</template>
-			
 		</wizard>
 	</div>
 </zk>

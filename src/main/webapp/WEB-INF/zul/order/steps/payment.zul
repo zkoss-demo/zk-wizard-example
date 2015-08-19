@@ -1,40 +1,35 @@
 <?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
 <?component name="formRow" templateURI="/WEB-INF/zul/template/wizard/formRow.zul" ?>
-<zk xmlns:sh="shadow" xmlns:ca="client/attribute">
-	<grid>
-		<rows>
-			<formRow type="static" label="@init(i18n:nls('order.basket'))" value="@init(savedOrder.basket)"/> 
-			<formRow type="static" label="@init(i18n:nls('order.shippingAddress'))" value="@init(savedOrder.shippingAddress)"/> 
-		</rows>
-	</grid>		
-	${i18n:nls('order.payment.hint')}
-	<grid viewModel="@id('paymentVM') @init('zk.example.order.PaymentViewModel', payment=order.payment)"
+<zk xmlns:sh="shadow" xmlns:ca="client/attribute" xmlns:x="xhtml">
+	<x:div class="form-horizontal" 
+			viewModel="@id('paymentVM') @init('zk.example.order.PaymentViewModel', payment=order.payment)"
 			payment="@ref(order.payment)">
-		<rows>
-			<formRow type="selectbox" label="@init(i18n:nls('order.payment.method'))" value="@ref(payment.method)" 
-				model="@init(paymentVM.availablePaymentMethods)" updateCommand="@init(paymentVM.paymentMethodUpdateCommand)"
-				error="@ref(vmsgs['p_payment.method'])"/> 
-			
-			<sh:if test="@load(paymentVM.hasCreditCard)">
-				<formRow type="selectbox" label="@init(i18n:nls('order.payment.creditCard.type'))" value="@ref(payment.creditCard.type)" 
-					model="@init(paymentVM.availableCreditCards)" 
-					error="@ref(vmsgs['p_payment.creditCard.type'])"/> 
-				<formRow type="creditcard" label="@init(i18n:nls('order.payment.creditCard.number'))" value="@ref(payment.creditCard.number)"
-					error="@ref(vmsgs['p_payment.creditCard.number'])"/> 
-				<formRow type="textbox" label="@init(i18n:nls('order.payment.creditCard.owner'))" value="@ref(payment.creditCard.owner)" 
-					error="@ref(vmsgs['p_payment.creditCard.owner'])"/> 
-			</sh:if>
-			
-			<sh:if test="@load(paymentVM.hasBankAccount)">
-				<formRow type="textbox" label="@init(i18n:nls('order.payment.bankAccount.iban'))" value="@ref(payment.bankAccount.iban)" 
-					error="@ref(vmsgs['p_payment.bankAccount.iban'])"/> 
-				<formRow type="textbox" label="@init(i18n:nls('order.payment.bankAccount.bic'))" value="@ref(payment.bankAccount.bic)" 
-					error="@ref(vmsgs['p_payment.bankAccount.bic'])"/> 
-			</sh:if> 
-		</rows>
-	</grid>
-
+		<formRow type="static" label="@init(i18n:nls('order.basket'))" value="@init(savedOrder.basket)"/> 
+		<formRow type="static" label="@init(i18n:nls('order.shippingAddress'))" value="@init(savedOrder.shippingAddress)"/> 
+		<x:div class="alert alert-info" role="alert" textContent="${i18n:nls('order.payment.hint')}"/>
+		<formRow type="selectbox" label="@init(i18n:nls('order.payment.method'))" value="@ref(payment.method)" 
+			model="@init(paymentVM.availablePaymentMethods)" updateCommand="@init(paymentVM.paymentMethodUpdateCommand)"
+			error="@ref(vmsgs['p_payment.method'])"/> 
+		
+		<sh:if test="@load(paymentVM.hasCreditCard)">
+			<formRow type="selectbox" label="@init(i18n:nls('order.payment.creditCard.type'))" value="@ref(payment.creditCard.type)" 
+				model="@init(paymentVM.availableCreditCards)" 
+				error="@ref(vmsgs['p_payment.creditCard.type'])"/> 
+			<formRow type="creditcard" label="@init(i18n:nls('order.payment.creditCard.number'))" value="@ref(payment.creditCard.number)"
+				error="@ref(vmsgs['p_payment.creditCard.number'])"/> 
+			<formRow type="textbox" label="@init(i18n:nls('order.payment.creditCard.owner'))" value="@ref(payment.creditCard.owner)" 
+				error="@ref(vmsgs['p_payment.creditCard.owner'])"/> 
+		</sh:if>
+		
+		<sh:if test="@load(paymentVM.hasBankAccount)">
+			<formRow type="textbox" label="@init(i18n:nls('order.payment.bankAccount.iban'))" value="@ref(payment.bankAccount.iban)" 
+				error="@ref(vmsgs['p_payment.bankAccount.iban'])"/> 
+			<formRow type="textbox" label="@init(i18n:nls('order.payment.bankAccount.bic'))" value="@ref(payment.bankAccount.bic)" 
+				error="@ref(vmsgs['p_payment.bankAccount.bic'])"/> 
+		</sh:if> 
+	</x:div>
+	
 	<template name="creditcard">
-		<textbox value="@bind(value)" ca:data-mask="${i18n:nls('order.creditCard.number.format')}"/>
+		<textbox zclass="form-control" value="@bind(value)" ca:data-mask="${i18n:nls('order.creditCard.number.format')}"/>
 	</template>
 </zk>

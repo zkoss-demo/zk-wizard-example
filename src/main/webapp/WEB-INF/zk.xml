@@ -6,6 +6,11 @@
 		<value>false</value>
 	</library-property>
 
+	<error-page>
+		<exception-type>zk.example.order.api.OrderException</exception-type>
+		<location>/WEB-INF/zul/order/error/orderError.zul</location>
+	</error-page>
+
 	<client-config>	
 		<data-handler>
 			<name>mask</name><!-- the attribute name, i.e. data-mask -->
@@ -17,6 +22,26 @@
 						onChange: function (event) {
 							event.data.value = jq(this.$n()).cleanVal();
 						}
+					});
+				}
+			</script>
+		</data-handler>
+		
+		<data-handler>
+			<name>toggle</name>
+			<script>
+				function (wgt, dataValue) {
+					jq(wgt.$n())[dataValue]();
+				}
+			</script>
+		</data-handler>
+		
+		<data-handler>
+			<name>close-event</name>
+			<script>
+				function (wgt, dataValue) {
+					jq(wgt.$n()).on(dataValue, function() {
+						wgt.fire("onModalClose", null, {toServer: true});
 					});
 				}
 			</script>
