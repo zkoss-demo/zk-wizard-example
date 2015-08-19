@@ -1,0 +1,4 @@
+<zk xmlns:sh="shadow">
+	Do you like Strawberries? 
+	<sh:apply template="yesno" answer="@ref(survey.answer1)"/>
+</zk>

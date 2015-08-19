@@ -1,0 +1,10 @@
+<?component name="wizard" templateURI="/WEB-INF/zul/template/wizard/wizard.zul" ?>
+<zk>
+	<div width="500px" 
+		 viewModel="@id('vm') @init('zk.example.order.OrderViewModel')" 
+		 validationMessages="@id('vmsgs')"
+		 onBookmarkChange="@command('gotoStep', stepId=event.bookmark)">
+		 
+		<wizard wizardModel="@init(vm.wizardModel)" order="@init(vm.order)"/>
+	</div>
+</zk>

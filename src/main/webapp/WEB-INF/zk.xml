@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <zk>
-	<!-- [Optional]
-	Uncomment if you want to defines the application's name 
-	
-	<preference>
-		<name>org.zkoss.zk.ui.WebApp.name</name>
-		<value>wizardexample</value>
-	</preference>
-	-->
-	
+	<library-property>
+		<name>org.zkoss.bind.DebuggerFactory.enable</name>
+		<value>false</value>
+	</library-property>
+
+	<client-config>	
+		<data-handler>
+			<name>mask</name><!-- the attribute name, i.e. data-mask -->
+			<script src="http://igorescobar.github.io/jQuery-Mask-Plugin/js/jquery.mask.min.js"/>
+			<script>
+				function (wgt, dataValue) {
+					jq(wgt.$n()).mask(dataValue);
+					wgt.listen({
+						onChange: function (event) {
+							event.data.value = jq(this.$n()).cleanVal();
+						}
+					});
+				}
+			</script>
+		</data-handler>
+	</client-config>	
 </zk>

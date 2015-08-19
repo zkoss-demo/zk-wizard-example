@@ -1,0 +1,37 @@
+<taglib>
+    <function>
+        <name>nls</name>
+        <function-class>zk.example.i18n.NlsFunctions</function-class>
+        <function-signature>String nls(java.lang.Object)</function-signature>
+        <description>
+        	Returns the localized string for an enumeration type
+        </description>
+    </function>
+
+    <function>
+        <name>nls2</name>
+        <function-class>zk.example.i18n.NlsFunctions</function-class>
+        <function-signature>String nls2(java.lang.Object, java.lang.Object)</function-signature>
+        <description>
+        	Returns the localized string for an enumeration type
+        </description>
+    </function>
+
+    <function>
+        <name>nls3</name>
+        <function-class>zk.example.i18n.NlsFunctions</function-class>
+        <function-signature>String nls3(java.lang.Object, java.lang.Object, java.lang.Object)</function-signature>
+        <description>
+        	Returns the localized string for an enumeration type
+        </description>
+    </function>
+    
+    <function>
+        <name>nlsSub</name>
+        <function-class>zk.example.i18n.NlsFunctions</function-class>
+        <function-signature>String nlsSub(java.lang.Enum, java.lang.String)</function-signature>
+        <description>
+        	Returns the localized string for an enumeration type
+        </description>
+    </function>
+</taglib>

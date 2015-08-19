@@ -1,0 +1,4 @@
+<zk xmlns:sh="shadow">
+	Can you resist checking this checkbox? 
+	<sh:apply template="yesno" answer="@ref(survey.answer3)"/>
+</zk>

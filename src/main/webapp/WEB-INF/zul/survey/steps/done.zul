@@ -1,0 +1,16 @@
+<zk xmlns:sh="shadow">
+	You answered:
+	<sh:apply template="answer" label="Answer 1" answer="@ref(survey.answer1)"/>
+	<sh:apply template="answer" label="Answer 2" answer="@ref(survey.answer2)"/>
+	<sh:if test="@load(survey.answer2)">
+		<sh:apply template="answer" label="Answer 2b" answer="@ref(survey.answer2b)"/>
+	</sh:if>
+	<sh:apply template="answer" label="Answer 3" answer="@ref(survey.answer3)"/>
+	
+	<!-- page local template -->
+	<template name="answer">
+		<hlayout>
+			<label value="@init(label)"/> <label value="@init(answer eq null ? 'Skipped' : answer ? 'Yes' : 'No')"/>
+		</hlayout>
+	</template>
+</zk>

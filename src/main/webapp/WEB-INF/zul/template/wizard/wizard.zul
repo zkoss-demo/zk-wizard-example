@@ -1,0 +1,31 @@
+<zk xmlns:sh="shadow">
+	<window border="normal" title="@load(wizardVM.currentStep.title)"
+			viewModel="@id('wizardVM') @init(wizardModel)"
+			validationMessages="@id('vmsgs')"
+			onOK="@command(wizardVM.nextCommand)">
+		<sh:apply template="wizardContent"/>
+	</window>
+
+	<template name="wizardContent">
+		<vlayout width="100%">
+			<sh:apply template="wizardProgress"/>
+			<sh:apply templateURI="@load(wizardVM.currentStepTemplateUri)" />
+			<sh:apply template="wizardButtons"/>
+		</vlayout>
+	</template>
+	
+	<template name="wizardProgress">
+		<progressmeter value="@load(wizardVM.progress)" width="100%" />
+	</template>
+	
+	<template name="wizardButtons">
+		<hlayout>
+			<sh:if test="@load(wizardVM.backVisible)">
+				<button label="@load(wizardVM.backLabel)" onClick="@command(wizardVM.backCommand)" />
+			</sh:if>
+			<sh:if test="@load(wizardVM.nextVisible)">
+				<button label="@load(wizardVM.nextLabel)" onClick="@command(wizardVM.nextCommand)" />
+			</sh:if>
+		</hlayout>
+	</template>
+</zk>

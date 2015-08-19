@@ -1,0 +1,37 @@
+<zk xmlns:sh="shadow">
+	<row>
+		<sh:choose>
+			<sh:when test="@init(type eq 'checkbox')">
+				<cell/>
+			</sh:when>
+			<sh:otherwise>
+				<label value="@init(label)"/>
+			</sh:otherwise>
+		</sh:choose>
+		<sh:apply template="@init(type)"/>
+	</row>
+	
+	<template name="checkbox">
+		<checkbox checked="@bind(value)" onCheck="@command(updateCommand)" label="@load(label)"/>
+	</template>
+	
+	<template name="textbox">
+		<textbox value="@bind(value)" onChange="@command(changeCommand)"/>
+	</template>
+
+	<template name="selectbox">
+		<selectbox selectedItem="@bind(value)" model="@load(model)" onSelect="@command(updateCommand)">
+			<template name="model">
+				<label value="@init(i18n:nls(each))"/>
+			</template>
+		</selectbox>
+	</template>
+
+	<template name="static">
+		<label value="@load(value)" />
+	</template>
+	
+	<template name="static-bookmark-link">
+		<a label="@load(value)" href="@init(('#' += bookmark))"/>
+	</template>
+</zk>

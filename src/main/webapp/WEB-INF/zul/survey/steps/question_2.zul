@@ -1,0 +1,8 @@
+<zk xmlns:sh="shadow">
+	Have you ever climbed a rock?
+	<sh:apply template="yesno" answer="@ref(survey.answer2)"/>
+	<sh:if test="@load(survey.answer2)">
+		Did you fall down?
+		<sh:apply template="yesno" answer="@ref(survey.answer2b)"/>
+	</sh:if>
+</zk>

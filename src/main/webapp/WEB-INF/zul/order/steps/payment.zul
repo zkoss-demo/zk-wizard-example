@@ -1,0 +1,33 @@
+<?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
+<?component name="formRow" templateURI="/WEB-INF/zul/template/wizard/formRow.zul" ?>
+<zk xmlns:sh="shadow" xmlns:ca="client/attribute">
+	<grid>
+		<rows>
+			<formRow type="static" label="@init(i18n:nls('order.basket'))" value="@init(order.basket)"/> 
+			<formRow type="static" label="@init(i18n:nls('order.shippingAddress'))" value="@init(order.shippingAddress)"/> 
+		</rows>
+	</grid>		
+	${i18n:nls('order.payment.hint')}
+	<grid viewModel="@id('paymentVM') @init('zk.example.order.PaymentViewModel', payment=order.payment)"
+			payment="@ref(order.payment)">
+		<rows>
+			<formRow type="selectbox" label="@init(i18n:nls('order.payment.method'))" value="@ref(payment.method)" model="@init(paymentVM.availablePaymentMethods)"  
+				updateCommand="@init(paymentVM.paymentMethodUpdateCommand)"/>
+			
+			<sh:if test="@load(paymentVM.hasCreditCard)">
+				<formRow type="selectbox" label="@init(i18n:nls('order.payment.creditCard.type'))" value="@ref(payment.creditCard.type)" model="@init(paymentVM.availableCreditCards)" />
+				<formRow type="creditcard" label="@init(i18n:nls('order.payment.creditCard.number'))" value="@ref(payment.creditCard.number)" />
+				<formRow type="textbox" label="@init(i18n:nls('order.payment.creditCard.owner'))" value="@ref(payment.creditCard.owner)" /> 
+			</sh:if>
+			
+			<sh:if test="@load(paymentVM.hasBankAccount)">
+				<formRow type="textbox" label="@init(i18n:nls('order.payment.bankAccount.iban'))" value="@ref(payment.bankAccount.iban)" /> 
+				<formRow type="textbox" label="@init(i18n:nls('order.payment.bankAccount.bic'))" value="@ref(payment.bankAccount.bic)" /> 
+			</sh:if> 
+		</rows>
+	</grid>
+
+	<template name="creditcard">
+		<textbox value="@bind(value)" ca:data-mask="${i18n:nls('order.creditCard.number.format')}"/>
+	</template>
+</zk>

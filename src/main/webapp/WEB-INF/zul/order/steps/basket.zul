@@ -1,0 +1,71 @@
+<?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
+<zk xmlns:sh="shadow" xmlns:x="xhtml" >
+	<div viewModel="@id('basketVM') @init('zk.example.order.BasketViewModel', basket=order.basket)">
+		<style>
+			.green {
+				color: #00CC00;
+			}
+			.yellow {
+				color: #FFDD00;
+			}
+			.red {
+				color: #EE0000;
+			}
+			.recommendation {
+				display: inline-block;
+				padding: 3px 7px;
+				background-color: #EEEEEE;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+		</style>
+
+		${i18n:nls('order.basket.hint')}
+		<grid model="@init(basketVM.itemsModel)">
+			<columns>
+				<column width="40px">
+					<x:i sclass="z-icon-shopping-cart" style="font-size: 22px"/>
+				</column>
+				<column hflex="1" label="${i18n:nls('order.basket.itemDescription')}"/>
+				<column width="60px" label="${i18n:nls('order.basket.quantity')}"/>
+				<column width="70px" label="${i18n:nls('order.basket.price')}" align="right"/>
+			</columns>
+			<template name="model" var="item">
+				<row>
+					<div status="@ref(item.status)" tooltiptext="@load(i18n:nls(status))" sclass="@load(i18n:nlsSub(status, 'style'))">
+						<x:i sclass="@load(i18n:nlsSub(status, 'icon'))" textContent=" "/>
+					</div>
+					<div>
+						<sh:apply template="basketItemLabel" item="@init(item)"/>
+						<a iconSclass="z-icon-times" sclass="red" onClick="@command('removeItem', basketItem=item)" tooltiptext="remove"/>
+					</div>
+					<spinner constraint="min 1" value="@bind(item.quantity)" width="50px" onChange="@command('updateQuantity', basketItem=item)" instant="true"/>
+					<label value="@load(item.itemPrice) @converter(basketVM.priceFormatter)"/>
+				</row>
+			</template>
+			<foot>
+				<footer/>
+				<footer label="${i18n:nls('order.basket.total')}"/>
+				<footer/>
+				<footer label="@load(order.basket.totalPrice) @converter(basketVM.priceFormatter)"/>
+			</foot>
+		</grid>
+		
+		<sh:if test="@load(basketVM.hasRecommendations)">
+			<vlayout>
+				${i18n:nls('order.basket.recommendation')}
+				<sh:forEach items="@init(basketVM.recommendedItemsModel)">
+					<div sclass="recommendation" onClick="@command('addRecommendedItem', item=each)" tooltiptext="add to basket">
+						<sh:apply template="basketItemLabel" item="@init(each)"/>
+						<a iconSclass="z-icon-plus green" href="#" />
+					</div>
+				</sh:forEach>
+			</vlayout>
+		</sh:if>
+
+		<template name="basketItemLabel">
+			<label value="@load(item.label)"/>
+			<label value="@load(item.unitPrice) @converter(basketVM.priceFormatterParentheses)"/>
+		</template>
+	</div>
+</zk>

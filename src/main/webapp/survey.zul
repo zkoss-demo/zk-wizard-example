@@ -1,0 +1,19 @@
+<?component name="wizard" templateURI="/WEB-INF/zul/template/wizard/wizard.zul" ?>
+<zk>
+	<div width="500px" 
+		 viewModel="@id('vm') @init('zk.example.survey.SurveyViewModel')" 
+		 validationMessages="@id('vmsgs')">
+
+		<wizard wizardModel="@init(vm.wizardModel)" survey="@init(vm.survey)">
+	
+			<!-- injected template - visible inside the wizard -->
+			<template name="yesno">
+				<radiogroup selectedItem="@bind(answer)">
+					<radio label="Yes" value="${true}"/>
+					<radio label="No" value="${false}"/>
+				</radiogroup>
+			</template>
+			
+		</wizard>
+	</div>
+</zk>

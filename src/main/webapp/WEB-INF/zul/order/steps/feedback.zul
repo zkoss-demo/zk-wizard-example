@@ -1,0 +1,18 @@
+<?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
+<zk xmlns:sh="shadow" xmlns:x="xhtml">
+	<vlayout>
+		${i18n:nls('order.feedback.success')}
+		<hlayout>
+			${i18n:nls('order.basket')}: 
+			<label value="@init(order.basket)"/> 
+		</hlayout>
+		<hlayout>
+			${i18n:nls('order.shippingAddress')}: 
+			<label value="@init(order.shippingAddress)"/> 
+		</hlayout>
+		<hlayout>
+			${i18n:nls('order.payment')}: 
+			<label value="@init(order.payment)"/> 
+		</hlayout>
+	</vlayout>
+</zk>

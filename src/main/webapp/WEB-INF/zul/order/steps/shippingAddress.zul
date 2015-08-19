@@ -1,0 +1,17 @@
+<?taglib uri="/WEB-INF/tld/i18n.tld" prefix="i18n"?>
+<?component name="formRow" templateURI="/WEB-INF/zul/template/wizard/formRow.zul" ?>
+<zk xmlns:sh="shadow">
+	<grid>
+		<rows>
+			<formRow type="static" label="@init(i18n:nls('order.basket'))" value="@init(order.basket)"/> 
+		</rows>
+	</grid>		
+	${i18n:nls('order.shippingAddress.hint')}
+	<grid>
+		<rows>
+			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.street'))" value="@ref(order.shippingAddress.street)"/> 
+			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.city'))" value="@ref(order.shippingAddress.city)"/> 
+			<formRow type="textbox" label="@init(i18n:nls('order.shippingAddress.zipCode'))" value="@ref(order.shippingAddress.zipCode)"/>
+		</rows>
+	</grid>
+</zk>
