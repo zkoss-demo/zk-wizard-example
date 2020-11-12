@@ -6,6 +6,11 @@
 		<value>false</value>
 	</library-property>
 
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>breeze</value>
+	</library-property>
+
 	<error-page>
 		<exception-type>zk.example.order.api.OrderException</exception-type>
 		<location>/WEB-INF/zul/order/error/orderError.zul</location>
@@ -46,5 +51,5 @@
 				}
 			</script>
 		</data-handler>
-	</client-config>	
+	</client-config>
 </zk>
