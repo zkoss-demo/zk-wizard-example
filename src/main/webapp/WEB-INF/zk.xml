@@ -6,6 +6,11 @@
 		<value>false</value>
 	</library-property>
 
+	<library-property>
+		<name>org.zkoss.theme.preferred</name>
+		<value>breeze</value>
+	</library-property>
+
 	<client-config>	
 		<data-handler>
 			<name>mask</name><!-- the attribute name, i.e. data-mask -->
